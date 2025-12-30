@@ -42,8 +42,10 @@
         /* --- 1. KISIM: LOGO VE SLIDER --- */
         .top-branding {
             background: var(--bg-card);
-            padding: 20px 20px 5px 20px;
+            padding: 20px 0 5px 0; /* Yan paddingleri kaldırdık, slider tam taşsın diye */
         }
+
+        .header-inner { padding: 0 20px; } /* Logo kısmı için iç padding */
 
         .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
         .settings-bar { display: flex; gap: 10px; justify-content: flex-end; }
@@ -65,27 +67,40 @@
             display: inline-flex; align-items: center; margin-top: 5px;
         }
 
-        /* HERO SLIDER */
+        /* HERO SLIDER - MOBİL UYUMLU */
         .hero-slider {
-            display: flex; overflow-x: auto; gap: 15px; padding: 0 20px 20px 20px;
-            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-            background: var(--bg-card);
+            display: flex; 
+            overflow-x: auto; 
+            gap: 15px; 
+            padding: 0 20px 20px 20px; /* Kenarlardan boşluk */
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Scrollbar gizle */
         }
         .hero-slider::-webkit-scrollbar { display: none; }
         
         .hero-card {
-            min-width: 280px; height: 150px; border-radius: 20px;
-            scroll-snap-align: center; position: relative; overflow: hidden;
-            box-shadow: var(--shadow-soft); flex-shrink: 0;
+            /* Mobil Uyumlu Genişlik: Ekranın %85'i */
+            min-width: 85vw; 
+            max-width: 400px; /* Tablette çok büyümesin */
+            height: 180px; 
+            border-radius: 20px;
+            scroll-snap-align: center; /* Ortaya yapışsın */
+            position: relative; 
+            overflow: hidden;
+            box-shadow: var(--shadow-soft); 
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
         }
+        
         .hero-img { width: 100%; height: 100%; object-fit: cover; }
         .hero-overlay {
             position: absolute; bottom: 0; left: 0; width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            padding: 15px; color: #fff;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            padding: 20px; color: #fff;
         }
-        .hero-title { font-weight: 700; font-size: 1rem; margin-bottom: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .hero-subtitle { font-size: 0.75rem; opacity: 0.9; }
+        .hero-title { font-weight: 700; font-size: 1.2rem; margin-bottom: 4px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .hero-subtitle { font-size: 0.9rem; opacity: 0.95; font-weight: 400; }
 
         /* --- 2. KISIM: STICKY NAV --- */
         .sticky-nav {
@@ -221,16 +236,18 @@
 <body>
 
     <div class="top-branding">
-        <div class="header-top">
-            <div>
-                <div class="restaurant-name" id="lbl-name">Regulus Bistro</div>
-                <div class="welcome-text" id="lbl-welcome">Lezzet şölenine hoş geldiniz.</div>
-                <div class="table-badge"><i class="fa-solid fa-chair" style="margin-right: 6px;"></i> Masa 0</div>
-            </div>
-            
-            <div class="settings-bar">
-                <button class="icon-btn" onclick="toggleLanguage()"><i class="fa-solid fa-globe"></i></button>
-                <button class="icon-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="theme-icon"></i></button>
+        <div class="header-inner">
+            <div class="header-top">
+                <div>
+                    <div class="restaurant-name" id="lbl-name">Regulus Bistro</div>
+                    <div class="welcome-text" id="lbl-welcome">Lezzet şölenine hoş geldiniz.</div>
+                    <div class="table-badge"><i class="fa-solid fa-chair" style="margin-right: 6px;"></i> Masa 0</div>
+                </div>
+                
+                <div class="settings-bar">
+                    <button class="icon-btn" onclick="toggleLanguage()"><i class="fa-solid fa-globe"></i></button>
+                    <button class="icon-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="theme-icon"></i></button>
+                </div>
             </div>
         </div>
         
@@ -341,7 +358,7 @@
             { 
                 title: "Tatlı Krizi?", en_title: "Sweet Cravings?",
                 sub: "San Sebastian Yanında Kahve İkram", en_sub: "Free Coffee with San Sebastian",
-                img: "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2024/09/THUMB-VIDEO-2_rev1-56.jpeg" 
+                img: "https://images.unsplash.com/photo-1629897260555-d227b686b24d?w=500&q=80" 
             }
         ];
 
@@ -370,7 +387,7 @@
             { id: 402, name: "Fettuccine Alfredo", en_name: "Fettuccine Alfredo", desc: "Kremalı mantar sos, tavuk parçaları.", en_desc: "Creamy mushroom sauce, chicken pieces.", price: 210, category: "Makarnalar", img: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=500&q=80", icons: [], related: [702] },
 
             // SALATALAR
-            { id: 501, name: "Avokado & Kinoa Salata", en_name: "Avocado & Quinoa Salad", desc: "Taze yeşillikler, avokado, nar ve ceviz.", en_desc: "Fresh greens, sliced avocado, pomegranate, walnut and citrus dressing.", price: 260, category: "Salatalar", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&q=80", icons: ['veg'], related: [706] },
+            { id: 501, name: "Avokado & Kinoa Salata", en_name: "Avocado & Quinoa Salad", desc: "Taze yeşillikler, dilimlenmiş avokado, nar, ceviz ve narenciye sos.", en_desc: "Fresh greens, sliced avocado, pomegranate, walnut and citrus dressing.", price: 260, category: "Salatalar", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&q=80", icons: ['veg'], related: [706] },
             { id: 502, name: "Sezar Salata", en_name: "Caesar Salad", desc: "Izgara tavuk, kruton ekmek, parmesan.", en_desc: "Grilled chicken, croutons, parmesan.", price: 180, category: "Salatalar", img: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=500&q=80", icons: [], related: [706] },
             { id: 503, name: "Ton Balıklı Salata", en_name: "Tuna Salad", desc: "Mevsim yeşillikleri, mısır, ton balığı.", en_desc: "Seasonal greens, corn, tuna.", price: 195, category: "Salatalar", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80", icons: [], related: [706] },
 
@@ -624,5 +641,4 @@
         });
     </script>
 </body>
-
 </html>
